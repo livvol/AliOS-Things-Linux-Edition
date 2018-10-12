@@ -7,6 +7,7 @@ include u-boot-rockchip.inc
 
 SRC_URI = " \
     git://github.com/rockchip-linux/u-boot.git;branch=29mirror; \
+    file://0001-roc-rk3308-cc-enable-uart2-m0.patch \
     file://0001-envtools-make-sure-version-timestamp-header-file-are.patch \
     file://0002-configs-evb-aarch32-rk3308-Extern-boot-delay.patch \
     file://0003-boot_rkimg-Support-boot-mode-without-misc-partition.patch \

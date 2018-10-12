@@ -1,0 +1,31 @@
+From 4e88ac058d7e1fc91f708b4600af3d61550fb73b Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Fri, 28 Sep 2018 10:46:34 +0800
+Subject: [PATCH] [roc-rk3308-cc] support emmc flash and enable uart2m0 for
+ debug
+
+---
+ arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+index 4fc1b01..f4c953e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+@@ -276,11 +276,12 @@
+ 	disable-wp;
+ 	non-removable;
+ 	num-slots = <1>;
+-	status = "disabled";
++	status = "okay";
+ };
+ 
+ &fiq_debugger {
+ 	status = "okay";
++    pinctrl-0 = <&uart2m0_xfer>;
+ };
+ 
+ &mac {
+-- 
+2.7.4
+

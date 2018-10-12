@@ -1,0 +1,31 @@
+From 618b99d89205f7073c6c65f54524580e816dd2d2 Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Thu, 27 Sep 2018 17:30:20 +0800
+Subject: [PATCH] [roc-rk3308-cc] enable uart2 m0
+
+---
+ arch/arm/mach-rockchip/rk3308/rk3308.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/mach-rockchip/rk3308/rk3308.c b/arch/arm/mach-rockchip/rk3308/rk3308.c
+index 238f4ae..052982d 100644
+--- a/arch/arm/mach-rockchip/rk3308/rk3308.c
++++ b/arch/arm/mach-rockchip/rk3308/rk3308.c
+@@ -77,9 +77,9 @@ void board_debug_uart_init(void)
+ 
+ 	/* Enable early UART2 channel m1 on the rk3308 */
+ 	rk_clrsetreg(&grf->soc_con5, UART2_IO_SEL_MASK,
+-		     UART2_IO_SEL_M1 << UART2_IO_SEL_SHIFT);
+-	rk_clrsetreg(&grf->gpio4d_iomux,
+-		     GPIO4D3_MASK | GPIO4D2_MASK,
+-		     GPIO4D2_UART2_RX_M1 << GPIO4D2_SHIFT |
+-		     GPIO4D3_UART2_TX_M1 << GPIO4D3_SHIFT);
++                UART2_IO_SEL_M0 << UART2_IO_SEL_SHIFT);
++    rk_clrsetreg(&grf->gpio1ch_iomux,
++                GPIO1C6_MASK | GPIO1C7_MASK,
++                GPIO1C6_UART2_RX_M0 << GPIO1C6_SHIFT |
++                GPIO1C7_UART2_TX_M0 << GPIO1C7_SHIFT);
+ }
+-- 
+2.7.4
+
