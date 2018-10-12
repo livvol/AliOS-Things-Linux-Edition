@@ -1,0 +1,33 @@
+From ccba1ad60e3f8b23482d69f36874dbe056ae7848 Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Wed, 10 Oct 2018 11:10:38 +0800
+Subject: [PATCH] [roc-rk3308-cc] fix the error when building
+
+---
+ include/linux/rockchip/rockchip_sip.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/rockchip/rockchip_sip.h b/include/linux/rockchip/rockchip_sip.h
+index 3258eed..19ffaba 100644
+--- a/include/linux/rockchip/rockchip_sip.h
++++ b/include/linux/rockchip/rockchip_sip.h
+@@ -180,11 +180,11 @@ sip_smc_vpu_reset(u32 arg0, u32 arg1, u32 arg2)
+ 	return tmp;
+ }
+ 
+-struct arm_smccc_res sip_smc_lastlog_request(void)
+-{
+-	struct arm_smccc_res tmp = {0};
+-	return tmp;
+-}
++// struct arm_smccc_res sip_smc_lastlog_request(void)
++// {
++	// struct arm_smccc_res tmp = {0};
++	// return tmp;
++// }
+ 
+ static inline int sip_smc_set_suspend_mode(u32 ctrl, u32 config1, u32 config2)
+ {
+-- 
+2.7.4
+
