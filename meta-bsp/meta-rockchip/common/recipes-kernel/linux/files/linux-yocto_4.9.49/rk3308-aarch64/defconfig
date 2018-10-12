@@ -81,7 +81,7 @@ CONFIG_DEVTMPFS_MOUNT=y
 # CONFIG_BLK_DEV is not set
 CONFIG_NETDEVICES=y
 # CONFIG_NET_CORE is not set
-# CONFIG_ETHERNET is not set
+CONFIG_STMMAC_ETH=y
 CONFIG_BCMDHD=y
 CONFIG_BCMDHD_FW_PATH="/lib/firmware/brcm/brcmfmac43455-sdio.bin"
 CONFIG_BCMDHD_NVRAM_PATH="/lib/firmware/brcm/brcmfmac43455-sdio.txt"

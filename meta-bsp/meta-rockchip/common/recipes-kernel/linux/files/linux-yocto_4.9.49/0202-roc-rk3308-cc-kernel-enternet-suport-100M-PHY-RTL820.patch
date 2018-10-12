@@ -1,0 +1,31 @@
+From 982a9b306b25248b664b6e89b2c6db6857ea96f3 Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Fri, 12 Oct 2018 10:03:34 +0800
+Subject: [PATCH] [roc-rk3308-cc] kernel->enternet suport 100M PHY-RTL8201F
+
+---
+ arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+index f4c953e..f1cb54b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+@@ -291,10 +291,10 @@
+ 	clock_in_out = "input";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&rmii_pins &mac_refclk>;
+-	snps,reset-gpio = <&gpio0 RK_PB2 GPIO_ACTIVE_LOW>;
+-	snps,reset-active-low;
+-	snps,reset-delays-us = <0 50000 50000>;
+-	status = "disable";
++	/* snps,reset-gpio = <&gpio0 RK_PB2 GPIO_ACTIVE_LOW>; */
++	/* snps,reset-active-low; */
++	/* snps,reset-delays-us = <0 50000 50000>; */
++	status = "okay";
+ };
+ 
+ &io_domains {
+-- 
+2.7.4
+
