@@ -5,6 +5,6 @@ DEFAULTTUNE ?= "aarch64"
 require conf/machine/include/rockchip-common.inc
 require conf/machine/include/arm/arch-armv8.inc
 
-SERIAL_CONSOLES = "1500000;ttyFIQ0"
+SERIAL_CONSOLES = "1500000;ttyS2"
 
 RK_TRUST_INI ?= "${@d.getVar('SOC_FAMILY').upper() + 'TRUST.ini'}"

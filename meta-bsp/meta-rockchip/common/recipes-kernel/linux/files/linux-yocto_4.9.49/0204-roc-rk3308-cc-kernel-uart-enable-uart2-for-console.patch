@@ -1,0 +1,24 @@
+From af80dd9ed40ea03e0a182eb7e6d13103abbc77b2 Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Sat, 13 Oct 2018 16:34:13 +0800
+Subject: [PATCH] [roc-rk3308-cc] kernel->uart: enable uart2 for console
+
+---
+ arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts b/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
+index 0f24165..d80243d 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
+@@ -60,3 +60,7 @@
+ 	rockchip,mode = <1>;
+ 	#sound-dai-cells = <0>;
+ };
++
++&uart2 {
++    status = "okay";
++};
+-- 
+2.7.4
+
