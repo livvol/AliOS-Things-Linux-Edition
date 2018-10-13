@@ -1,0 +1,53 @@
+From 8fb9c78354b50d540b21dcb5442d47d8eacdf1bc Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Sat, 13 Oct 2018 18:16:58 +0800
+Subject: [PATCH] [roc-rk3308-cc] kernel->add firefly led support
+
+---
+ .../arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts | 17 +++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi        |  1 +
+ 2 files changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts b/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
+index d80243d..bbebd2f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-dmic-pdm-v11.dts
+@@ -30,6 +30,23 @@
+ 		rockchip,cpu = <&pdm_8ch>;
+ 		rockchip,codec = <&dummy_codec>, <&vad>;
+ 	};
++
++    leds {
++        status = "okay";
++        compatible = "gpio-leds";
++        power {
++            label = "firefly:red:power"; 
++            linux,default-trigger = "ir-power-click";
++            default-state = "on";
++            gpios = <&gpio0 RK_PA6 GPIO_ACTIVE_HIGH>;
++        };
++        user {
++            label = "firefly:blue:user";
++            linux,default-trigger = "ir-user-click";
++            default-state = "off";
++            gpios = <&gpio0 RK_PB2 GPIO_ACTIVE_HIGH>;
++        };
++    };
+ };
+ 
+ &acodec_sound {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+index 5693ced..29330de 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+@@ -58,6 +58,7 @@
+ 	};
+ 
+ 	gpio-keys {
++        status = "okay";
+ 		compatible = "gpio-keys";
+ 		autorepeat;
+ 
+-- 
+2.7.4
+
