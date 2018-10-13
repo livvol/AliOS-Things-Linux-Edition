@@ -1,0 +1,94 @@
+From b30641d6439770236500950161303d7b0990fbb0 Mon Sep 17 00:00:00 2001
+From: Guanzl <service@t-firefly.com>
+Date: Sat, 13 Oct 2018 10:11:06 +0800
+Subject: [PATCH] [roc-rk3308-cc] kernel->wifi: support ap6236
+
+---
+ arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi               | 2 +-
+ drivers/net/wireless/rockchip_wlan/rkwifi/rk_wifi_config.c     | 6 ++++++
+ drivers/net/wireless/rockchip_wlan/wifi_sys/rkwifi_sys_iface.c | 8 +++++++-
+ include/linux/rfkill-wlan.h                                    | 1 +
+ net/rfkill/rfkill-wlan.c                                       | 6 ++++--
+ 5 files changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+index f1cb54b..5693ced 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3308-evb-v11.dtsi
+@@ -236,7 +236,7 @@
+ 		rockchip,grf = <&grf>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&wifi_wake_host>;
+-		wifi_chip_type = "ap6255";
++		wifi_chip_type = "ap6236";
+ 		WIFI,host_wake_irq = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
+ 		status = "okay";
+ 	};
+diff --git a/drivers/net/wireless/rockchip_wlan/rkwifi/rk_wifi_config.c b/drivers/net/wireless/rockchip_wlan/rkwifi/rk_wifi_config.c
+index fa07a94..8b613d2 100644
+--- a/drivers/net/wireless/rockchip_wlan/rkwifi/rk_wifi_config.c
++++ b/drivers/net/wireless/rockchip_wlan/rkwifi/rk_wifi_config.c
+@@ -74,6 +74,12 @@ if (chip == WIFI_AP6234) {
+ 	sprintf(nvram, "%s%s", ANDROID_FW_PATH, "nvram_AP6234.txt");
+ }
+ 
++
++if (chip == WIFI_AP6236) {
++    sprintf(fw, "%s%s", ANDROID_FW_PATH, "fw_bcm43436b0.bin");
++       sprintf(nvram, "%s%s", ANDROID_FW_PATH, "nvram_ap6236.txt");
++}
++
+ if (chip == WIFI_AP6255) {
+     sprintf(fw, "%s%s", ANDROID_FW_PATH, "fw_bcm43455c0_ag.bin");
+     sprintf(nvram, "%s%s", ANDROID_FW_PATH, "nvram_ap6255.txt");
+diff --git a/drivers/net/wireless/rockchip_wlan/wifi_sys/rkwifi_sys_iface.c b/drivers/net/wireless/rockchip_wlan/wifi_sys/rkwifi_sys_iface.c
+index f79fe44..4c75b85 100644
+--- a/drivers/net/wireless/rockchip_wlan/wifi_sys/rkwifi_sys_iface.c
++++ b/drivers/net/wireless/rockchip_wlan/wifi_sys/rkwifi_sys_iface.c
+@@ -48,7 +48,13 @@ static ssize_t wifi_chip_read(struct class *cls, struct class_attribute *attr, c
+ 	    printk("Current WiFi chip is AP6234.\n");
+ 	}
+ 
+-	if (type == WIFI_AP6255) {
++
++    if(type == WIFI_AP6236) {
++        count = sprintf(_buf, "%s", "AP6236");
++        printk("Current WiFi chip is AP6236.\n");
++    }
++
++    if (type == WIFI_AP6255) {
+ 		count = sprintf(_buf, "%s", "AP6255");
+ 		printk("Current WiFi chip is AP6255.\n");
+ 	}
+diff --git a/include/linux/rfkill-wlan.h b/include/linux/rfkill-wlan.h
+index 87733b1..d78a396 100644
+--- a/include/linux/rfkill-wlan.h
++++ b/include/linux/rfkill-wlan.h
+@@ -53,6 +53,7 @@ enum {
+     WIFI_AP6210,
+     WIFI_AP6212,
+     WIFI_AP6234,
++    WIFI_AP6236,
+     WIFI_AP6255,
+     WIFI_AP6330,
+     WIFI_AP6335,
+diff --git a/net/rfkill/rfkill-wlan.c b/net/rfkill/rfkill-wlan.c
+index d4d33ec..84d9f14 100644
+--- a/net/rfkill/rfkill-wlan.c
++++ b/net/rfkill/rfkill-wlan.c
+@@ -120,8 +120,10 @@ int get_wifi_chip_type(void)
+         type = WIFI_AP6181;
+     } else if (strcmp(wifi_chip_type_string, "ap6234") == 0) {
+ 	type = WIFI_AP6234;
+-    } else if (strcmp(wifi_chip_type_string, "ap6255") == 0) {
+-	type = WIFI_AP6255;
++    }else if (strcmp(wifi_chip_type_string, "ap6236") == 0) {
++        type = WIFI_AP6236;
++    }else if (strcmp(wifi_chip_type_string, "ap6255") == 0) {
++	    type = WIFI_AP6255;
+     } else if (strcmp(wifi_chip_type_string, "ap6330") == 0) {
+         type = WIFI_AP6330;
+     } else if (strcmp(wifi_chip_type_string, "ap6335") == 0) {
+-- 
+2.7.4
+
